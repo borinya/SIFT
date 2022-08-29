@@ -1,0 +1,33 @@
+import numpy as np
+
+basic_path = "/dasio/AI5758/snapshots/snapshots-2021-09-05" # путь до размеченного дня
+
+list_of_path_to_photo = np.empty(0)
+
+for i in range(len(list_of_photo)):
+    list_of_path_to_photo = np.append(list_of_path_to_photo, basic_path + "/" + list_of_photo[i])
+
+list_of_dates = np.empty(0)
+
+for i in range(len(list_of_photo)):
+    list_of_dates = np.append(list_of_dates,list_of_photo[i][4:23])
+unique_date = (list(set(list_of_dates)))
+
+unique_date,len(unique_date)
+
+
+dict_with_path = dict.fromkeys(unique_date)
+dict_with_path, len(dict_with_path)
+
+for i in range(len(list_of_path_to_photo)): # добавляем в конец путь
+    dict_with_path[(list_of_path_to_photo[i][49:68])] = np.append(dict_with_path[(list_of_path_to_photo[i][49:68])], (list_of_path_to_photo[i]))
+for key in dict_with_path.keys(): # кикаем None, которые по умолчанию родились
+    dict_with_path[key] = dict_with_path[key][1:]
+dict_with_path_final = {} # финальный где 2 пути на 1 время
+for key in dict_with_path.keys():
+    if (len(dict_with_path.get(key)) == 2):
+        dict_with_path_final[key] = dict_with_path.get(key)
+with open('/app/SIFT/dict_with_path_final.pkl', 'wb') as f:
+    pickle.dump(dict_with_path_final, f)
+
+print(dict_with_path_final)
